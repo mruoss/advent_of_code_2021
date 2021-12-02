@@ -4,6 +4,7 @@ defmodule AOC2021.Day01.SolverTest do
   alias AOC2021.Day01.Solver, as: MUT
 
   describe "solve/2" do
+    @tag :day01
     test "should solve first task with first test input from website correctly" do
       stream = """
       199
@@ -22,6 +23,7 @@ defmodule AOC2021.Day01.SolverTest do
       assert 7 == MUT.solve(stream, :first)
     end
 
+    @tag :day01
     test "should solve second task with first test input from website correctly" do
       stream = """
       199
