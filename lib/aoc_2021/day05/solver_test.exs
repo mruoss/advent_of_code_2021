@@ -23,7 +23,7 @@ defmodule AOC2021.Day05.SolverTest do
       assert 5 == MUT.solve(stream, :first)
     end
 
-    @tag :day05_skip
+    @tag :day05
     test "should solve second task with first test input from website correctly" do
       stream = """
       0,9 -> 5,9
