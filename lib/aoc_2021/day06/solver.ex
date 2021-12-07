@@ -15,30 +15,32 @@ defmodule AOC2021.Day06.Solver do
     * => iterate
   """
   def solve(stream, after_days) do
-    freq = stream
-    |> Stream.map(&String.trim/1)
-    |> Enum.to_list()
-    |> hd()
-    |> String.split(",")
-    |> Enum.map(&String.to_integer/1)
-    |> Enum.frequencies()
+    freq =
+      stream
+      |> Stream.map(&String.trim/1)
+      |> Enum.to_list()
+      |> hd()
+      |> String.split(",")
+      |> Enum.map(&String.to_integer/1)
+      |> Enum.frequencies()
 
     %{0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0}
     |> Map.merge(freq)
     |> then(&iterate(after_days, &1))
   end
 
-  defp iterate(0, population), do: population |> Map.values |> Enum.sum()
+  defp iterate(0, population), do: population |> Map.values() |> Enum.sum()
+
   defp iterate(day, population) do
     replicating_lanternfish = population[0]
 
     new_population =
-    population
-    |> Map.delete(0)
-    |> Enum.map(fn {day, count} -> {day - 1, count} end)
-    |> Enum.into(%{})
-    |> Map.update!(6, &(&1 + replicating_lanternfish))
-    |> Map.put(8, replicating_lanternfish)
+      population
+      |> Map.delete(0)
+      |> Enum.map(fn {day, count} -> {day - 1, count} end)
+      |> Enum.into(%{})
+      |> Map.update!(6, &(&1 + replicating_lanternfish))
+      |> Map.put(8, replicating_lanternfish)
 
     iterate(day - 1, new_population)
   end

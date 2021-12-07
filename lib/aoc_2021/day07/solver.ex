@@ -9,38 +9,37 @@ defmodule AOC2021.Day07.Solver do
   * get the minimum
   """
   def solve(stream, :first) do
-    numbers = stream
-    |> Stream.map(&String.trim/1)
-    |> Enum.to_list()
-    |> hd()
-    |> String.split(",")
-    |> Enum.map(&String.to_integer/1)
+    numbers = parse_numbers(stream)
 
-    mean = numbers |> Enum.sort() |> Enum.at(numbers |> length() |> div(2))
+    median = numbers |> Enum.sort() |> Enum.at(numbers |> length() |> div(2))
+
     numbers
-    |> Enum.map(&(abs(mean - &1)))
+    |> Enum.map(&abs(median - &1))
     |> Enum.sum()
   end
 
   def solve(stream, :second) do
-    numbers = stream
+    numbers = parse_numbers(stream)
+    max = Enum.max(numbers)
+
+    for nr <- numbers,
+        pos <- 0..max,
+        reduce: Tuple.duplicate(0, max + 1) do
+      acc ->
+        diff = abs(pos - nr)
+        fuel = div((1 + diff) * diff, 2)
+        put_elem(acc, pos, elem(acc, pos) + fuel)
+    end
+    |> Tuple.to_list()
+    |> Enum.min()
+  end
+
+  defp parse_numbers(stream) do
+    stream
     |> Stream.map(&String.trim/1)
     |> Enum.to_list()
     |> hd()
     |> String.split(",")
     |> Enum.map(&String.to_integer/1)
-
-    max = Enum.max(numbers)
-    for nr <- numbers,
-        pos <- 0..max,
-        reduce: Tuple.duplicate(0, max+1)
-        do acc ->
-          diff = abs(pos-nr)
-          fuel = div((1+diff) * diff, 2)
-          put_elem(acc, pos, elem(acc, pos) + fuel)
-    end
-    |> Tuple.to_list()
-    |> Enum.min()
-
   end
 end
