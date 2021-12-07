@@ -1,5 +1,7 @@
 defmodule AOC2021.Day07.Solver do
   @doc """
+  https://adventofcode.com/2021/day/7
+
   Approach Part 1:
   * Calculate the mean of all numbers which is the alignment position.
   * Calculate the sum of fuels
