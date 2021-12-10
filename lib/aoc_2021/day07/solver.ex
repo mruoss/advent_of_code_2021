@@ -38,7 +38,6 @@ defmodule AOC2021.Day07.Solver do
 
   defp parse_numbers(stream) do
     stream
-    |> Stream.map(&String.trim/1)
     |> Enum.to_list()
     |> hd()
     |> String.split(",")

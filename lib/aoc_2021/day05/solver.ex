@@ -15,7 +15,6 @@ defmodule AOC2021.Day05.Solver do
   """
   def solve(stream, get_diagonal) do
     stream
-    |> Stream.map(&String.trim/1)
     |> Stream.map(&String.split(&1, [" -> ", ","]))
     |> Stream.map(fn line -> Enum.map(line, &String.to_integer/1) end)
     #  convert lines to points (get_diagonal differs on part 1 and 2):

@@ -50,7 +50,6 @@ defmodule AOC2021.Day09.Solver do
 
   defp build_heightmap(stream) do
     stream
-    |> Enum.map(&String.trim/1)
     |> Enum.map(fn line ->
       line
       |> String.split("", trim: true)

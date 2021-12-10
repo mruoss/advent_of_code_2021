@@ -64,7 +64,7 @@ defmodule AOC2021.Day08.Solver do
     stream
     |> Stream.map(fn line ->
       line
-      |> String.split([" ", "|", "\n"], trim: true)
+      |> String.split([" ", "|"], trim: true)
       |> Enum.map(&String.to_charlist/1)
       |> Enum.map(&Enum.sort/1)
     end)

@@ -17,7 +17,6 @@ defmodule AOC2021.Day06.Solver do
   def solve(stream, after_days) do
     freq =
       stream
-      |> Stream.map(&String.trim/1)
       |> Enum.to_list()
       |> hd()
       |> String.split(",")

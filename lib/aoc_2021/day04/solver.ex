@@ -20,7 +20,7 @@ defmodule AOC2021.Day04.Solver do
   """
   def solve(stream, find_winner_board_by_score) do
     [draws | boards] =
-      stream |> Stream.map(&String.trim/1) |> Stream.reject(&(&1 == "\n")) |> Enum.to_list()
+      stream |> Stream.reject(&(&1 == "\n")) |> Enum.to_list()
 
     # get forward and reverse maps for draws
     {draw_to_number, number_to_draw} = format_draws(draws)

@@ -1,10 +1,8 @@
 defmodule AOC2021.Day03.Solver do
-  alias AOC2021.Input
-
-  def solve(stream, :first) do
+   def solve(stream, :first) do
     sums =
       stream
-      |> Input.stream_of_charlist()
+      |> Stream.map(&String.to_charlist/1)
       |> Enum.reduce(nil, fn number, acc ->
         Enum.zip_with(number, acc || List.duplicate(0, length(number)), fn
           ?1, acc_digit -> acc_digit + 1
@@ -26,7 +24,7 @@ defmodule AOC2021.Day03.Solver do
   end
 
   def solve(stream, :second) do
-    numbers = Input.stream_of_charlist(stream)
+    numbers = Stream.map(stream, &String.to_charlist/1)
 
     ogr = find_rating(numbers, &ogr_criteria/1)
     csr = find_rating(numbers, &csr_criteria/1)
