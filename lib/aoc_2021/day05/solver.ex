@@ -1,18 +1,19 @@
 defmodule AOC2021.Day05.Solver do
-  def solve(stream, :first), do: solve(stream, fn _ -> [] end)
-
-  def solve(stream, :second),
-    do: solve(stream, fn [x1, y1, x2, y2] -> Enum.zip(x1..x2, y1..y2) end)
-
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/5
 
-  Approach:
+  ## Approach
+
   * Parse and convert to int
   * Convert the lines to lists of points
   * get the frequency (occurrence) of each point.
   * Count points with frequency >= 3
   """
+  def solve(stream, :first), do: solve(stream, fn _ -> [] end)
+
+  def solve(stream, :second),
+    do: solve(stream, fn [x1, y1, x2, y2] -> Enum.zip(x1..x2, y1..y2) end)
+
   def solve(stream, get_diagonal) do
     stream
     |> Stream.map(&String.split(&1, [" -> ", ","]))

@@ -1,14 +1,9 @@
 defmodule AOC2021.Day04.Solver do
-  def solve(stream, :first),
-    do: solve(stream, &Enum.min(&1, fn {score1, _}, {score2, _} -> score1 < score2 end))
-
-  def solve(stream, :second),
-    do: solve(stream, &Enum.max(&1, fn {score1, _}, {score2, _} -> score1 > score2 end))
-
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/4
 
-  Approach:
+  ## Approach
+
   * Parse draws => create a forward and reverse map (i.e. number => draw, draw => number)
   * Parse boards and get the score for each board:
     * map all numbers to their draws
@@ -18,6 +13,13 @@ defmodule AOC2021.Day04.Solver do
   * Find the winner board: depending on the part, the one with the min (resp. max) score.
   * map the score tho the number and multiply with all numbers of the winner board with higher draw than the board's score.
   """
+
+  def solve(stream, :first),
+    do: solve(stream, &Enum.min(&1, fn {score1, _}, {score2, _} -> score1 < score2 end))
+
+  def solve(stream, :second),
+    do: solve(stream, &Enum.max(&1, fn {score1, _}, {score2, _} -> score1 > score2 end))
+
   def solve(stream, find_winner_board_by_score) do
     [draws | boards] =
       stream |> Stream.reject(&(&1 == "\n")) |> Enum.to_list()

@@ -1,11 +1,9 @@
 defmodule AOC2021.Day06.Solver do
-  def solve(stream, :first), do: solve(stream, 80)
-  def solve(stream, :second), do: solve(stream, 256)
-
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/6
 
-  Approach:
+  ## Approach
+
   * Create a frequency map of timer => number_of_lanternfish_with_this_timer
   * recursively iterate over all days (80 resp. 256) and for each day do the following:
     * All fish with timer 0 will replicate
@@ -14,6 +12,9 @@ defmodule AOC2021.Day06.Solver do
     * Add number replicating fish to fish with timer 8
     * => iterate
   """
+  def solve(stream, :first), do: solve(stream, 80)
+  def solve(stream, :second), do: solve(stream, 256)
+
   def solve(stream, after_days) do
     freq =
       stream

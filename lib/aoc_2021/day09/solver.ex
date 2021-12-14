@@ -1,26 +1,29 @@
 defmodule AOC2021.Day09.Solver do
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/9
 
-  For both parts:
-    * build the heightmap (parsing, converting to tuple of integers)
-    * find coordinates of local lows by iterating over the heightmap and comparing with neighbors
+  ## Both parts
 
-  Part 1:
-    * lookup the heights for all local lows from the heigthmap
-    * sum over all heigts and add the number of lows (+1)
+  * build the heightmap (parsing, converting to tuple of integers)
+  * find coordinates of local lows by iterating over the heightmap and comparing with neighbors
 
-  Part 2:
-    * Map over local lows and find the corrdinates of the basin points iteratively - starting with the local low as the first point in the basin:
-      * Reduce over all adjacent points of the current point:
-        * if the coordinates are already part of the basin       => return the basin
-        * if the height is greater than 8                        => return the basin
-        * if the height is lower or equal to the previous height => return the basin
-        * otherwise add the point to the basin and continue the recursion with the new point
-    * map over the basins and calculate their size (the number of points in the basin)
-    * sort basins by size desc
-    * take the top 3
-    * calculate the product
+  ### Part 1
+
+  * lookup the heights for all local lows from the heigthmap
+  * sum over all heigts and add the number of lows (+1)
+
+  ### Part 2
+
+  * Map over local lows and find the corrdinates of the basin points iteratively - starting with the local low as the first point in the basin:
+    * Reduce over all adjacent points of the current point:
+      * if the coordinates are already part of the basin       => return the basin
+      * if the height is greater than 8                        => return the basin
+      * if the height is lower or equal to the previous height => return the basin
+      * otherwise add the point to the basin and continue the recursion with the new point
+  * map over the basins and calculate their size (the number of points in the basin)
+  * sort basins by size desc
+  * take the top 3
+  * calculate the product
   """
   def solve(stream, :first) do
     heightmap = build_heightmap(stream)

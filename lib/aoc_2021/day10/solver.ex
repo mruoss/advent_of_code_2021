@@ -1,5 +1,5 @@
 defmodule AOC2021.Day10.Solver do
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/10
 
   ## Both parts

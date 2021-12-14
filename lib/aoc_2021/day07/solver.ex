@@ -1,12 +1,14 @@
 defmodule AOC2021.Day07.Solver do
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/7
 
-  Approach Part 1:
+  ## Approach Part 1
+
   * Calculate the mean of all numbers which is the alignment position.
   * Calculate the sum of fuels
 
-  Approach Part 2:
+  ## Approach Part 2
+
   * Iterate over all numbers and positions and sum up fuels for each of them.
   * get the minimum
   """

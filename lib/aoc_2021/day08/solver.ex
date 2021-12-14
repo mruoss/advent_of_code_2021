@@ -1,11 +1,13 @@
 defmodule AOC2021.Day08.Solver do
-  @doc """
+  @moduledoc """
   https://adventofcode.com/2021/day/8
 
-  Approach Part 1:
+  ## Approach Part 1
+
   Get the sum of all signals with 2,3,4 or 7 segments
 
-  Approach Part 2:
+  ## Approach Part 2
+
   * Get the correct mapping from segments to digit
     * 1, 4, 7 and 8 are unique by the number of segments
     * 6, 9, 0 all have 6 segments
