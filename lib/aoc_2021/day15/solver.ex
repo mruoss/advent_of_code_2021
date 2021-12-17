@@ -9,6 +9,10 @@ defmodule AOC2021.Day15.Solver do
       * get the minimum of all 4 neighbouring score
       * if that plus the current risk level is lower than what's stored in the map, update the map and mark the recurion_flag.
       * Otherwise don't update anything and don't mark the recurion_flag
+
+  ## Possible improvement
+
+  Use dijkstra (inspired by community)
   """
 
   def solve(stream, :first) do

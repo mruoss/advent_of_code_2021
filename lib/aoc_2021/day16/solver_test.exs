@@ -1,5 +1,5 @@
 defmodule AOC2021.Day16.SolverTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias AOC2021.Day16.Solver, as: MUT
 
@@ -13,6 +13,14 @@ defmodule AOC2021.Day16.SolverTest do
     end
 
     @tag :day16
+    @tag :puzzle
+    test "should solve first task for puzzle input correctly" do
+      stream = File.stream!("priv/input/day16.txt") |> Stream.map(&String.trim/1)
+
+      assert 960 == MUT.solve(stream, :first)
+    end
+
+    @tag :day16
     test "should solve second task for all test inputs from website correctly" do
       assert 3 == MUT.solve(["C200B40A82"], :second)
       assert 54 == MUT.solve(["04005AC33890"], :second)
@@ -21,6 +29,14 @@ defmodule AOC2021.Day16.SolverTest do
       assert 0 == MUT.solve(["F600BC2D8F"], :second)
       assert 0 == MUT.solve(["9C005AC2F8F0"], :second)
       assert 1 == MUT.solve(["9C0141080250320F1802104A08"], :second)
+    end
+
+    @tag :day16
+    @tag :puzzle
+    test "should solve second task for puzzle input correctly" do
+      stream = File.stream!("priv/input/day16.txt") |> Stream.map(&String.trim/1)
+
+      assert 12301926782560 == MUT.solve(stream, :second)
     end
   end
 end

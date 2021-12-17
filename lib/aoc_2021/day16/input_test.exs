@@ -1,8 +1,7 @@
 defmodule AOC2021.Day16.InputTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias AOC2021.Day16.Input, as: MUT
-
 
   describe "parse/1" do
     @tag :day16
