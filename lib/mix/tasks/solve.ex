@@ -3,9 +3,16 @@ defmodule Mix.Tasks.Solve do
   @impl Mix.Task
   def run([day, subtask]) do
     apply(String.to_existing_atom("Elixir.AOC2021.#{String.capitalize(day)}.Solver"), :solve, [
-      File.stream!("priv/input/#{day}.txt") |> Stream.map(&String.trim/1),
+      read_input(day),
       String.to_existing_atom(subtask)
     ])
     |> IO.inspect()
   end
+
+  defp read_input(day) when day in ["day17"],
+   do: File.read!("priv/input/#{day}.txt") |> String.trim()
+
+   defp read_input(day),
+   do: File.stream!("priv/input/#{day}.txt") |> Stream.map(&String.trim/1)
+
 end
