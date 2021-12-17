@@ -13,7 +13,6 @@ defmodule AOC2021.Day16.Solver do
   def solve(stream, :first) do
     stream
     |> Input.parse()
-    |> Input.parse_transmission()
     |> then(&elem(&1, 0))
     |> sum_versions()
   end
@@ -21,7 +20,6 @@ defmodule AOC2021.Day16.Solver do
   def solve(stream, :second) do
     stream
     |> Input.parse()
-    |> Input.parse_transmission()
     |> then(&elem(&1, 0))
     |> calculate()
   end

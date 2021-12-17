@@ -3,23 +3,15 @@ defmodule AOC2021.Day16.InputTest do
 
   alias AOC2021.Day16.Input, as: MUT
 
-  @tag :day16
-  describe "prase/1" do
-    @tag :day16
-    test "should solve first task with first test input from website correctly" do
-      assert "110100101111111000101000" == MUT.parse(["D2FE28"])
-      assert "00111000000000000110111101000101001010010001001000000000" == MUT.parse(["38006F45291200"])
-    end
-  end
 
-  describe "parse_transmission/1" do
+  describe "parse/1" do
     @tag :day16
     test "parses literal example correctly" do
       assert {%{
         version: 6,
         type: 4,
         value: 2021
-      }, "000"} == MUT.parse_transmission("110100101111111000101000")
+      }, <<0::size(3)>>} == MUT.parse(["D2FE28"])
     end
 
     @tag :day16
@@ -39,7 +31,7 @@ defmodule AOC2021.Day16.InputTest do
             value: 20
           },
         ]
-      }, "0000000"} == MUT.parse_transmission("00111000000000000110111101000101001010010001001000000000")
+      }, <<0::size(7)>>} == MUT.parse(["38006F45291200"])
     end
   end
 
@@ -65,6 +57,6 @@ defmodule AOC2021.Day16.InputTest do
           value: 3
         },
       ]
-    }, "00000"} == MUT.parse_transmission("11101110000000001101010000001100100000100011000001100000")
+    }, <<0::size(5)>>} == MUT.parse(["EE00D40C823060"])
   end
 end
