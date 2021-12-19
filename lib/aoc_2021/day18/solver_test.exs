@@ -2,7 +2,6 @@ defmodule AOC2021.Day18.SolverTest do
   use ExUnit.Case, async: true
 
   alias AOC2021.Day18.Solver, as: MUT
-  alias AOC2021.Day18.Tree
 
   @input_0 """
   [[[[4,3],4],4],[7,[[8,4],9]]]
@@ -62,17 +61,17 @@ defmodule AOC2021.Day18.SolverTest do
   describe "reduce/1" do
     @tag :day18
     test "should reduce first, second and third test input from website correctly" do
-      assert "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]" == @input_0 |> String.split("\n", trim: true) |> MUT.reduce() |> Tree.print()
-      assert "[[[[1,1],[2,2]],[3,3]],[4,4]]" == @input_1 |> String.split("\n", trim: true) |> MUT.reduce() |> Tree.print()
-      assert "[[[[3,0],[5,3]],[4,4]],[5,5]]" == @input_2 |> String.split("\n", trim: true) |> MUT.reduce() |> Tree.print()
-      assert "[[[[5,0],[7,4]],[5,5]],[6,6]]" == @input_3 |> String.split("\n", trim: true) |> MUT.reduce() |> Tree.print()
+      assert "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]" == @input_0 |> String.split("\n", trim: true) |> MUT.reduce() |> to_string()
+      assert "[[[[1,1],[2,2]],[3,3]],[4,4]]" == @input_1 |> String.split("\n", trim: true) |> MUT.reduce() |> to_string()
+      assert "[[[[3,0],[5,3]],[4,4]],[5,5]]" == @input_2 |> String.split("\n", trim: true) |> MUT.reduce() |> to_string()
+      assert "[[[[5,0],[7,4]],[5,5]],[6,6]]" == @input_3 |> String.split("\n", trim: true) |> MUT.reduce() |> to_string()
     end
 
     @tag :day18
     test "should reduce fourth test input from website correctly" do
       stream = String.split(@input_4, "\n", trim: true)
 
-      assert "[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]" == MUT.reduce(stream) |> Tree.print()
+      assert "[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]" == MUT.reduce(stream) |> to_string()
     end
   end
 
@@ -92,16 +91,19 @@ defmodule AOC2021.Day18.SolverTest do
       assert 3806 == MUT.solve(stream, :first)
     end
 
-    # @tag :day18
-    # test "should solve second task for all test inputs from website correctly" do
-    #   assert 112 == MUT.solve("target area: x=20..30, y=-10..-5", :second)
-    # end
+    @tag :day18
+    test "should solve second task for test input from website correctly" do
+      stream = String.split(@example_homework, "\n", trim: true)
 
-    # @tag :day18
-    # @tag :puzzle
-    # test "should solve second task for puzzle input correctly" do
-    #   input = File.read!("priv/input/day18.txt") |> String.trim()
-    #   assert 3229 == MUT.solve(input, :second)
-    # end
+      assert 3993 == MUT.solve(stream, :second)
+    end
+
+    @tag :day18
+    @tag :puzzle
+    test "should solve second task for puzzle input correctly" do
+      stream = File.stream!("priv/input/day18.txt") |> Stream.map(&String.trim/1)
+
+      assert 4727 == MUT.solve(stream, :second)
+    end
   end
 end

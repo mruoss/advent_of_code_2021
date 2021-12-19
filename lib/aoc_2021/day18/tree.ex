@@ -1,30 +1,45 @@
 defmodule AOC2021.Day18.Tree do
   defstruct [:left, :right, :leaves_on_left, :leaves_on_right]
 
+  defimpl String.Chars, for: __MODULE__ do
+    def to_string(tree) do
+      tree |> do_to_string() |> IO.iodata_to_binary()
+    end
+    defp do_to_string(number) when is_integer(number), do: Integer.to_string(number)
+
+    defp do_to_string(%AOC2021.Day18.Tree{left: left, right: right}) do
+      ["[", do_to_string(left), ",", do_to_string(right), "]"]
+    end
+  end
+
+  # constructors and add operation
+
   defp set_left(tree, left), do: %__MODULE__{tree | left: left, leaves_on_left: count_leaves(left)}
   defp set_right(tree, right), do: %__MODULE__{tree | right: right, leaves_on_right: count_leaves(right)}
   def new(left, right), do: %__MODULE__{} |> set_left(left) |> set_right(right)
 
-  def parse(input), do: do_parse(input) |> then(&elem(&1, 0))
-  def do_parse(<< "[", rest::binary >>) do
-    {left, << ",", rest::binary >>} = do_parse(rest)
-    {right, << "]", rest::binary >>} = do_parse(rest)
-    {new(left, right), rest}
-  end
+  def add(left, right), do: reduce(new(left, right))
 
-  def do_parse(<< number::binary-size(1), rest::binary >>), do: {String.to_integer(number), rest}
+  def magnitude(number) when is_integer(number), do: number
+  def magnitude(%__MODULE__{left: left, right: right}),
+    do: 3 * magnitude(left)+ 2 * magnitude(right)
+
+  # helpers
 
   defp count_leaves(tree) when is_integer(tree), do: 1
   defp count_leaves(tree), do: tree.leaves_on_left + tree.leaves_on_right
 
-  def print(tree) do
-    tree |> do_print() |> IO.iodata_to_binary()
-  end
+  # parsing
 
-  defp do_print(%__MODULE__{left: left, right: right}) do
-    ["[", do_print(left), ",", do_print(right), "]"]
+  def parse(input), do: do_parse(input) |> then(&elem(&1, 0))
+  defp do_parse(<< "[", rest::binary >>) do
+    {left, << ",", rest::binary >>} = do_parse(rest)
+    {right, << "]", rest::binary >>} = do_parse(rest)
+    {new(left, right), rest}
   end
-  defp do_print(number), do: Integer.to_string(number)
+  defp do_parse(<< number::binary-size(1), rest::binary >>), do: {String.to_integer(number), rest}
+
+  # explosions
 
   def explode(tree) do
     case do_explode(tree) do
@@ -53,10 +68,6 @@ defmodule AOC2021.Day18.Tree do
   def dispatch(tree, nil, _), do: {nil, tree}
   def dispatch(number, [{_, dispatch_number}], _) when is_integer(number), do: {[], number + dispatch_number}
   def dispatch(tree, to_dispatch, traversal_index) do
-    # IO.inspect(to_dispatch)
-    # IO.inspect(traversal_index)
-    # IO.inspect(traversal_index + tree.leaves_on_left)
-    # IO.inspect(traversal_index + tree.leaves_on_left + tree.leaves_on_right)
     Enum.flat_map_reduce(to_dispatch, tree, fn {dispatch_index, _} = to_dispatch, acc ->
       cond do
         dispatch_index < traversal_index ->
@@ -72,6 +83,8 @@ defmodule AOC2021.Day18.Tree do
       end
     end)
   end
+
+  # splitting
 
   def split(tree) do
     {_, tree} = do_split(tree)
@@ -92,10 +105,7 @@ defmodule AOC2021.Day18.Tree do
     end
   end
 
-  def add(left, right) do
-    new(left, right)
-    |> reduce()
-  end
+  # reduction
 
   defp reduce(tree) do
     # tree |> print() |> IO.inspect()
@@ -107,10 +117,5 @@ defmodule AOC2021.Day18.Tree do
         end
       {_, tree} -> reduce(tree)
     end
-  end
-
-  def magnitude(number) when is_integer(number), do: number
-  def magnitude(%__MODULE__{left: left, right: right}) do
-    3 * magnitude(left)+ 2 * magnitude(right)
   end
 end
