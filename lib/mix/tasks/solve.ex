@@ -9,10 +9,11 @@ defmodule Mix.Tasks.Solve do
     |> IO.inspect()
   end
 
+  defp read_input("day21"), do: {8,5}
   defp read_input(day) when day in ["day17"],
-   do: File.read!("priv/input/#{day}.txt") |> String.trim()
+  do: File.read!("priv/input/#{day}.txt") |> String.trim()
 
-   defp read_input(day),
-   do: File.stream!("priv/input/#{day}.txt") |> Stream.map(&String.trim/1)
+  defp read_input(day),
+  do: File.stream!("priv/input/#{day}.txt") |> Stream.map(&String.trim/1)
 
 end
