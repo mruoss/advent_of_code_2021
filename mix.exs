@@ -23,7 +23,8 @@ defmodule AOC2021.MixProject do
   defp deps do
     [
       {:matrix, "~> 0.3"},
-      {:mix_test_watch, "~> 1.1.0", only: :dev, runtime: false}
+      {:mix_test_watch, "~> 1.1.0", only: :dev, runtime: false},
+      {:priority_queue, "~> 1.0.0"}
     ]
   end
 end

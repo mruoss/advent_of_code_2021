@@ -10,6 +10,7 @@ defmodule Mix.Tasks.Solve do
   end
 
   defp read_input("day21"), do: {8,5}
+  defp read_input("day23"), do: %{2 => C, 3 => C, 6 => D, 7 => B, 10 => A, 11 => A, 14 => B, 15 => D}
   defp read_input(day) when day in ["day17"],
   do: File.read!("priv/input/#{day}.txt") |> String.trim()
 
